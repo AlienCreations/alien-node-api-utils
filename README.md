@@ -32,10 +32,10 @@ $ npm test
 var apiUtils  = require('alien-node-api-utils'),
     userModel = require('./models/user');
 
-function getUsers(req, res) {
+function getUsers(req, res, next) {
   userModel.getUsers().
     then(apiUtils.jsonResponseSuccess(req, res)).
-    catch(apiUtils.jsonResponseError(req, res));
+    catch(apiUtils.jsonResponseError(req, res, next));
 };
 
 module.exports = getUsers;
@@ -54,5 +54,9 @@ module.exports = getUsers;
   - fix circular json in response
 
 ##### 1.0.0
-  - add fix for res.headerssent
+  - BREAKING CHANGE: `jsonResponseError` now requires `next` 
+  - add fix for res.headersSent
   - serialize errors in the response so that properties like 'stack' are included in the response
+
+##### 1.0.1
+  - update README to reflect new error signature
