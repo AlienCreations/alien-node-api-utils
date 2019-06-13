@@ -1,11 +1,12 @@
 {
   "name"            : "alien-node-api-utils",
-  "version"         : "0.1.3",
+  "version"         : "1.0.0",
   "description"     : "Helper functions for API handling on NodeJS",
   "main"            : "lib/API.js",
   "dependencies"    : {
-    "ramda"   : "^0.x.x",
-    "aybabtu" : "*"
+    "aybabtu"         : "*",
+    "ramda"           : "^0.x.x",
+    "serialize-error" : "^4.1.0"
   },
   "devDependencies" : {
     "coveralls" : "^2.11.2",

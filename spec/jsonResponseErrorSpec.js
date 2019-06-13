@@ -57,13 +57,15 @@ const EXPECTED_RESPONSE_DATA_NO_SESSION   = JSON.stringify({
         data       : FAKE_ERROR_RESPONSE_TRIMMED
       });
 
+const FAKE_NEXT = jasmine.createSpy('next');
+
 describe('makeJsonResponseError without session', () => {
 
   let response = {};
 
   beforeEach(() => {
     spyOn(mockRes, 'send');
-    response = jsonResponseError(mockReqNoSession, mockRes, FAKE_ERROR_RESPONSE);
+    response = jsonResponseError(mockReqNoSession, mockRes, FAKE_NEXT, FAKE_ERROR_RESPONSE);
   });
 
   it('executes the mock res.send function', () => {
@@ -78,7 +80,7 @@ describe('makeJsonResponseError without flash', () => {
 
   beforeEach(() => {
     spyOn(mockRes, 'send');
-    response = jsonResponseError(mockReqNoFlash, mockRes, FAKE_ERROR_RESPONSE);
+    response = jsonResponseError(mockReqNoFlash, mockRes, FAKE_NEXT, FAKE_ERROR_RESPONSE);
   });
 
   it('executes the mock res.send function', () => {
@@ -93,7 +95,7 @@ describe('makeJsonResponseError with session', () => {
 
   beforeEach(() => {
     spyOn(mockRes, 'send');
-    response = jsonResponseError(mockReqWithSession, mockRes, FAKE_ERROR_RESPONSE);
+    response = jsonResponseError(mockReqWithSession, mockRes, FAKE_NEXT, FAKE_ERROR_RESPONSE);
   });
 
   it('executes the mock res.send function', () => {

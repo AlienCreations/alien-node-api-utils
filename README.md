@@ -52,3 +52,7 @@ module.exports = getUsers;
  
 ##### 0.1.3
   - fix circular json in response
+
+##### 1.0.0
+  - add fix for res.headerssent
+  - serialize errors in the response so that properties like 'stack' are included in the response
