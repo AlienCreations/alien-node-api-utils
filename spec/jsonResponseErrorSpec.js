@@ -27,8 +27,9 @@ const mockRes = {
   set    : () => {
   },
   send   : R.identity
-
 };
+
+const mockResHeadersSent = R.assoc('headersSent', true, mockRes);
 
 const FAKE_HTTP_STATUS_CODE_ERROR = 1337;
 
@@ -60,48 +61,36 @@ const EXPECTED_RESPONSE_DATA_NO_SESSION   = JSON.stringify({
 const FAKE_NEXT = jasmine.createSpy('next');
 
 describe('makeJsonResponseError without session', () => {
-
-  let response = {};
-
   beforeEach(() => {
     spyOn(mockRes, 'send');
-    response = jsonResponseError(mockReqNoSession, mockRes, FAKE_NEXT, FAKE_ERROR_RESPONSE);
+    jsonResponseError(mockReqNoSession, mockRes, FAKE_NEXT, FAKE_ERROR_RESPONSE);
   });
 
   it('executes the mock res.send function', () => {
     expect(mockRes.send).toHaveBeenCalledWith(EXPECTED_RESPONSE_DATA_NO_SESSION);
   });
-
 });
 
 describe('makeJsonResponseError without flash', () => {
-
-  let response = {};
-
   beforeEach(() => {
     spyOn(mockRes, 'send');
-    response = jsonResponseError(mockReqNoFlash, mockRes, FAKE_NEXT, FAKE_ERROR_RESPONSE);
+    jsonResponseError(mockReqNoFlash, mockRes, FAKE_NEXT, FAKE_ERROR_RESPONSE);
   });
 
   it('executes the mock res.send function', () => {
     expect(mockRes.send).toHaveBeenCalledWith(EXPECTED_RESPONSE_DATA_NO_SESSION);
   });
-
 });
 
 describe('makeJsonResponseError with session', () => {
-
-  let response = {};
-
   beforeEach(() => {
     spyOn(mockRes, 'send');
-    response = jsonResponseError(mockReqWithSession, mockRes, FAKE_NEXT, FAKE_ERROR_RESPONSE);
+    jsonResponseError(mockReqWithSession, mockRes, FAKE_NEXT, FAKE_ERROR_RESPONSE);
   });
 
   it('executes the mock res.send function', () => {
     expect(mockRes.send).toHaveBeenCalledWith(EXPECTED_RESPONSE_DATA_WITH_SESSION);
   });
-
 });
 
 describe('mockRes.send', () => {
@@ -110,8 +99,17 @@ describe('mockRes.send', () => {
   });
 });
 
+describe('headers already sent', () => {
+  beforeAll(() => {
+    jsonResponseError(mockReqWithSession, mockResHeadersSent, FAKE_NEXT, FAKE_ERROR_RESPONSE);
+  });
+  it('sends an error if the headers have been sent', () => {
+    expect(FAKE_NEXT).toHaveBeenCalledWith(FAKE_ERROR_RESPONSE);
+  })
+});
+
 describe('mockReqWithSession.flash', () => {
-  it('returns the value given', () => {
+  it('is unaffected by the session', () => {
     expect(mockReqWithSession.flash('foo')).toBe('foo');
   });
 });

@@ -60,3 +60,6 @@ module.exports = getUsers;
 
 ##### 1.0.1
   - update README to reflect new error signature
+
+##### 1.0.2
+  - fix test coverage and update dependencies

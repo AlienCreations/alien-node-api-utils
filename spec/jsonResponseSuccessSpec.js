@@ -50,48 +50,36 @@ const FAKE_API_RESPONSE_NO_SESSION   = JSON.stringify({
       });
 
 describe('makeJsonResponseSuccess without session', () => {
-
-  let response = {};
-
   beforeEach(() => {
     spyOn(mockRes, 'send');
-    response = jsonResponseSuccess(mockReqNoSession, mockRes, FAKE_DATABASE_RESPONSE);
+    jsonResponseSuccess(mockReqNoSession, mockRes, FAKE_DATABASE_RESPONSE);
   });
 
   it('executes the mock res.send function', () => {
     expect(mockRes.send).toHaveBeenCalledWith(FAKE_API_RESPONSE_NO_SESSION);
   });
-
 });
 
 describe('makeJsonResponseSuccess without flash', () => {
-
-  let response = {};
-
   beforeEach(() => {
     spyOn(mockRes, 'send');
-    response = jsonResponseSuccess(mockReqNoFlash, mockRes, FAKE_DATABASE_RESPONSE);
+    jsonResponseSuccess(mockReqNoFlash, mockRes, FAKE_DATABASE_RESPONSE);
   });
 
   it('executes the mock res.send function', () => {
     expect(mockRes.send).toHaveBeenCalledWith(FAKE_API_RESPONSE_NO_SESSION);
   });
-
 });
 
 describe('makeJsonResponseSuccess with session', () => {
-
-  let response = {};
-
   beforeEach(() => {
     spyOn(mockRes, 'send');
-    response = jsonResponseSuccess(mockReqWithSession, mockRes, FAKE_DATABASE_RESPONSE);
+    jsonResponseSuccess(mockReqWithSession, mockRes, FAKE_DATABASE_RESPONSE);
   });
 
   it('executes the mock res.send function', () => {
     expect(mockRes.send).toHaveBeenCalledWith(FAKE_API_RESPONSE_WITH_SESSION);
   });
-
 });
 
 describe('mockRes.send', () => {
