@@ -20,12 +20,9 @@ const mockReqNoSession = {
 
 const mockRes = {
   json   : R.identity,
-  status : () => {
-    return mockRes;
-  },
+  status : () => mockRes,
   locals : {},
-  set    : () => {
-  },
+  set    : () => {},
   send   : R.identity
 };
 
